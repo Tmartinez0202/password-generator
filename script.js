@@ -6,15 +6,19 @@ var specialChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "
 var numberLine = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
 function getPasswordOptions (){
-  var length = parseInt (prompt("How many characters would you like your password to contain?"));
-  
-//validate between 8 and 100 char
-  var hasSpecial = confirm("Click ok to contain special characters.")
-  var hasNumber = confirm("Click ok to contain numbers.")
-  var hasUpper = confirm("Click ok to contain uppercase letters.")
-  var hasLower = confirm("Click ok to contain lowercase letters.")
+  var length = parseInt (prompt("How many characters would you like your password to contain?"));{
+    if (length < 8 ||length > 128){
+      alert ("Must be between 8 and 128 characters!")
+    } else{
+      
+      var hasSpecial = confirm("Click ok to contain special characters.")
+      var hasNumber = confirm("Click ok to contain numbers.")
+      var hasUpper = confirm("Click ok to contain uppercase letters.")
+      var hasLower = confirm("Click ok to contain lowercase letters.")
+    }
 
-  //validate at least one was selected
+  }
+  
   var passwordOptions = {
     length: length, 
     hasSpecial: hasSpecial,
@@ -35,30 +39,30 @@ function generatePassword(){
   var options = getPasswordOptions();
   var result = [];
   var possibleChar = [];
-  var guarenteedChar = [];
+  var guaranteedChar = [];
 
   if (options.hasSpecial){
     possibleChar = possibleChar.concat(specialChar)
-    guarenteedChar.push(getRandom(specialChar))
+    guaranteedChar.push(getRandom(specialChar))
   }
   if (options.hasNumber){
     possibleChar = possibleChar.concat(numberLine)
-    guarenteedChar.push(getRandom(numberLine))
+    guaranteedChar.push(getRandom(numberLine))
   }
   if (options.hasUpper){
     possibleChar = possibleChar.concat(uppercaseLetters)
-    guarenteedChar.push(getRandom(uppercaseLetters))
+    guaranteedChar.push(getRandom(uppercaseLetters))
   }
   if (options.hasLower){
     possibleChar = possibleChar.concat(lowercaseLetters)
-    guarenteedChar.push(getRandom(lowercaseLetters))
+    guaranteedChar.push(getRandom(lowercaseLetters))
   }
   for(i = 0; i < options.length; i++){
     var possible = getRandom(possibleChar)
     result.push(possible)
   }
-  for(i = 0; i < guarenteedChar.length; i++){
-    result[i] = guarenteedChar[i]
+  for(i = 0; i < guaranteedChar.length; i++){
+    result[i] = guaranteedChar[i]
   }
   return result.join("")
 }
@@ -75,15 +79,3 @@ function writePassword() {
   
 }
 generateBtn.addEventListener("click", writePassword)
-// function generateLower(){
-  // lowercaseLetters(Math.floor(Math.random()* 26))
-  
-  // }
-
-// console.log(generateLower());
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
-
-// // for (var i = 0; i < lowercaseLetters.length; i++) {
-//   // console.log(Math.floor(Math.random()* 26));
-// }
